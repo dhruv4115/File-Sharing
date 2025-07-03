@@ -5,6 +5,7 @@ const connectDB = require('./config/connection');
 const app = express();
 const PORT = process.env.PORT || 8081;
 const sendMail = require('./service/MailSender');
+const fileUploadRoute = require('./routes/fileUploadRoute');
 
 connectDB(process.env.MONGO_URI);
 
@@ -22,10 +23,12 @@ let emailOptions = {
     size: 1234
 };
 
-app.get('/send', (req, res) =>{
-    sendMail(emailOptions);
-    res.send('Email sent successfully');
-});
+// app.get('/send', (req, res) =>{
+//     sendMail(emailOptions);
+//     res.send('Email sent successfully');
+// });
+app.use('/', fileUploadRoute);
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

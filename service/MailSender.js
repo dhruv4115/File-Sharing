@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const transporter = require('../config/Mailer');
 
-const sendMail = async({emailTo, emailFrom, link, fileName, size}) =>{
+const sendMail = async({emailTo, emailFrom, link, fileName}) =>{
     await transporter.sendMail({
         from: emailFrom,
         to: emailTo,    

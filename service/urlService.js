@@ -1,7 +1,6 @@
 const express= require('express');
 const Url = require('../models/Url');
 const urlRepo= require('../repository/UrlRepository');
-const { nanoid } = require('nanoid');
 const { saveUrl, getUrlByShortId, incrementCount } = require('../repository/UrlRepository');
 
 function isValidUrl(url) {
@@ -27,7 +26,7 @@ async function shortenUrl(originalUrl) {
         if (!isValidUrl(originalUrl)) {
             throw new Error('Invalid URL format');
         }
-
+        const { nanoid } = await import('nanoid');
         const shortId = nanoid(6); // Generate a 6-character unique ID
         const urlDoc = await saveUrl(shortId, originalUrl);
         return urlDoc;

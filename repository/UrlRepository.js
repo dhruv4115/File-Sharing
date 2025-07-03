@@ -1,12 +1,12 @@
 const Url= require('../models/Url');
 
 async function saveUrl(shortId,originalUrl){
-    const newUrl= new Url({shortUrl:shortId,originalUrl:originalUrl});
+    const newUrl= new Url({shortId,originalUrl});
     return await newUrl.save();
 }
 
 async function getUrlByShortId(shortId){
-    return await Url.findOne({shortUrl:shortId});
+    return await Url.findOne({shortId});
 }
 
 async function incrementCount(urlDoc){
