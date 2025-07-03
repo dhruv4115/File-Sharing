@@ -6,8 +6,10 @@ const app = express();
 const PORT = process.env.PORT || 8081;
 const sendMail = require('./service/MailSender');
 const fileUploadRoute = require('./routes/fileUploadRoute');
+const ExpiryCron = require('./service/cronJob');
 
 connectDB(process.env.MONGO_URI);
+ExpiryCron();
 
 app.use(express.json());
 
