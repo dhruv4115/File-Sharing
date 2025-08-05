@@ -1,10 +1,11 @@
 const cron = require('node-cron');
+const { markallExpiryFilesInDB } = require('../repository/fileSharingRepository');
 
 function ExpiryCron(){
-    cron.schedule('* * * * * *', () => {
-        //Every Day at 7PM
+    cron.schedule('0 7 * * *', () => {
+        //Every Day at 7AM
         markallExpiryFilesInDB();
-        console.log('running a task every minute');
+        console.log('running a task every day at 7AM');
     });
 }
 

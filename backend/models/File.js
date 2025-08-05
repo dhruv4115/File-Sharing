@@ -2,6 +2,10 @@ const { uniq } = require('lodash');
 const mongoose  = require('mongoose');
 
 const fileSchema = new mongoose.Schema({
+    userName: {
+      type: String,
+      required: true,
+    },
     shortId: {
         type: String,
         required: true,
@@ -19,19 +23,18 @@ const fileSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    expiry: {
-        type: Date,
+    expiryAt: {
+      type: Date,
+      required: true,
     },
     isExpired: {
         type: Boolean,
         default: false
     },
-    createdAt: {
-        type: Date,
-    },
-    updatedAt: {
-        type: Date,
-    }
-});
+},
+{
+    timestamps: true, // creates and manages createdAt & updatedAt automatically
+}
+);
 
-module.exports = mongoose.model('File', fileSchema);
+module.exports = mongoose.models.File || mongoose.model('File', fileSchema);
