@@ -31,6 +31,9 @@ const fileSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    createdAt:{
+        type:String
+    }
 },
 {
     timestamps: true, // creates and manages createdAt & updatedAt automatically
