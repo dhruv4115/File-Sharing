@@ -19,6 +19,7 @@
     "multer": "^2.0.1",
     "nanoid": "^5.1.5",
     "node-cron": "^4.2.0",
-    "nodemailer": "^7.0.3"
+    "nodemailer": "^7.0.3",
+    "zod": "^4.0.14"
   }
 }
