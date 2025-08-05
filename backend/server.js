@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 8081;
 const fileUploadRoute = require('./routes/fileUploadRoute');
 const ExpiryCron = require('./service/cronJob');
 const sendMailRoute = require('./routes/sendMailRoute');
+const signupRoute = require('./routes/signupRoute');
+const signinRoute = require('./routes/signinRoute');
 
 connectDB(process.env.MONGO_URI);
 ExpiryCron();
@@ -18,6 +20,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to File Sharing App');
 });
 
+app.use('/', signupRoute);
+app.use('/', signinRoute);
 app.use('/', fileUploadRoute);
 app.use('/', sendMailRoute);
 
