@@ -11,7 +11,7 @@ const signupRoute = require('./routes/signupRoute');
 const signinRoute = require('./routes/signinRoute');
 const cors = require('cors');
 app.use(cors());
-app.options('*', cors());
+// app.options('*', cors());
 
 connectDB(process.env.MONGO_URI);
 ExpiryCron();
