@@ -17,4 +17,16 @@ async function markallExpiryFilesInDB ()
     }
 }
 
-module.exports = {markallExpiryFilesInDB};
+async function findData ({user})
+{
+    try
+    {
+        return await File.find({user});
+    }
+    catch (error)
+    {
+        console.log("Error in finding user's data", error);
+    }
+}
+
+module.exports = {markallExpiryFilesInDB, findData}
