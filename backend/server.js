@@ -9,6 +9,9 @@ const ExpiryCron = require('./service/cronJob');
 const sendMailRoute = require('./routes/sendMailRoute');
 const signupRoute = require('./routes/signupRoute');
 const signinRoute = require('./routes/signinRoute');
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
 
 connectDB(process.env.MONGO_URI);
 ExpiryCron();
