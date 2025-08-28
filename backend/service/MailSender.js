@@ -7,6 +7,7 @@ const sendMail = async({emailTo, emailFrom, link, fileName}) =>{
         to: emailTo,    
         subject: 'File Ready to Download',
         text: `Hi from NodeMailer`,
+        html : `You have been invited by ${emailFrom} to view ${fileName} :- ${link}`,
     },function(err, data){
         if(err){
             console.log("Error" + err);

@@ -44,4 +44,7 @@ function signinValidator(req, res, next)
     next();
 }
 
-module.exports = signupValidator, signinValidator;
+module.exports = {
+    signupValidator, 
+    signinValidator
+};
