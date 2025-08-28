@@ -3,7 +3,7 @@ const router = express.Router();
 const sendMail = require('../service/mailSender');
 const validateToken = require('../middlewares/tokenValidator');
 
-router.post('/send', validateToken, async (req, res) => {
+module.exports = router.post('/send', validateToken, async (req, res) => {
     try
     {
         const emailFrom = req.body.emailFrom;
@@ -21,5 +21,3 @@ router.post('/send', validateToken, async (req, res) => {
         res.send("Some error occured");
     }
 });
-
-module.exports = router;

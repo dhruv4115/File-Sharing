@@ -14,7 +14,7 @@ const axios = require('axios');
 const fileTypeValidator = require('../middlewares/fileValidator');
 const validateToken = require('../middlewares/tokenValidator');
 
-router.post("/upload", validateToken, upload.single('file'), fileTypeValidator, async (req, res) => {
+module.exports = router.post("/upload", validateToken, upload.single('file'), fileTypeValidator, async (req, res) => {
     try{
         const {expiry} = req.body.expiry;
         if(!req.file) {
@@ -47,5 +47,3 @@ router.post("/upload", validateToken, upload.single('file'), fileTypeValidator, 
         res.send("Error while uploading file");
     }
 });
-
-module.exports = router;
