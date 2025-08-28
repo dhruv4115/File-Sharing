@@ -5,44 +5,45 @@ import { useRecoilState } from "recoil";
 import { authState } from "../atoms/authAtom";
 import { useEffect } from "react";
 import { userState } from "../atoms/userAtom";
+import signinState from "../atoms/signinStateAtom";
 
 function Signin ()
 {
     const [emailInput, setEmailInput] = useState();
     const [passwordInput, setPasswordInput] = useState();
-    const [currentState, setCurrentState] = useState("");
     const [auth, setAuth] = useRecoilState(authState);
     const [user, setUser] = useRecoilState(userState);
+    const [currentState, setCurrentState] = useRecoilState(signinState);
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const verifyToken = async () => {
-            const token = localStorage.getItem("authToken");
+    // useEffect(() => {
+    //     const verifyToken = async () => {
+    //         const token = localStorage.getItem("authToken");
     
-            if (token)
-            {
-                const response = await axios.post('http://localhost:8081/signin', {
-                    "token" : token
-                });
+    //         if (token)
+    //         {
+    //             const response = await axios.post('http://localhost:8081/signin', {
+    //                 "token" : token
+    //             });
 
-                if (response.data.message === "Valid user")
-                {
-                    setCurrentState("Signin successfull");
-                    setAuth({
-                        isLoggedIn : true
-                    });
-                    setUser({
-                        user : response.data.userData
-                    });
-                }
-            }
+    //             if (response.data.message === "Valid user")
+    //             {
+    //                 setCurrentState("Signin successfull");
+    //                 setAuth({
+    //                     isLoggedIn : true
+    //                 });
+    //                 setUser({
+    //                     user : response.data.userData
+    //                 });
+    //             }
+    //         }
 
-            return;
-        }
+    //         return;
+    //     }
 
-        verifyToken();
-    }, []);
+    //     verifyToken();
+    // }, [auth.isLoggedIn]);
 
     return (
         <>
@@ -66,10 +67,12 @@ function Signin ()
                         </div>
                     </div>
 
-                    {<div className="signin-current-state">{currentState}</div>}
+                    {<div className="signin-current-state">{currentState.signinState}</div>}
 
                     <button className="signin-button" onClick={async () => {
-                        setCurrentState("Signing you in...");
+                        setCurrentState({
+                            signinState : "Signing you in..."
+                        });
 
                         const response = await axios.post('http://localhost:8081/signin', {
                             userName : emailInput,
@@ -78,17 +81,23 @@ function Signin ()
 
                         if (response.data === "Invalid username")
                         {
-                            setCurrentState("No user found!");
+                            setCurrentState({
+                                signinState : "No user found!"
+                            });
                             return;
                         }
                         else if (response.data === "Invalid password")
                         {
-                            setCurrentState("Invalid password!");
+                            setCurrentState({
+                                signinState : "Invalid password!"
+                            });
                             return;
                         }
                         else if (response.data.message === "Valid user")
                         {
-                            setCurrentState("Signin successfull");
+                            setCurrentState({
+                                signinState : "Signin successfull"
+                            });
                             setAuth({
                                 isLoggedIn : true
                             });
@@ -99,7 +108,9 @@ function Signin ()
                         }
                         else if (response.data.message === "User signin successfull")
                         {
-                            setCurrentState("Signin successfull");
+                            setCurrentState({
+                                signinState : "Signin successfull"
+                            });
                             localStorage.setItem("authToken", response.data.token);
                             setAuth({
                                 isLoggedIn : true
@@ -109,9 +120,11 @@ function Signin ()
                             });
                             return;
                         }
-                        
+
                         console.log(response.data);
-                        setCurrentState("Some error occurred");
+                        setCurrentState({
+                            signinState : "Some error occurred"
+                        });
                         return;
                     }}>
                         Submit
